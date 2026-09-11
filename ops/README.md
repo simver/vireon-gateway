@@ -12,4 +12,6 @@ Platform、QBC、数据库、Redis、Nacos Server 或跨项目组合编排不归
 - 只为真实存在且通过健康与契约验证的下游服务启用路由。
 
 当前入口：`verify.ps1`运行本仓格式检查、测试及独立JAR验收，`check-docs.ps1`检查本地文档链接和空白。
+`verify.ps1`自动生成当轮JSON回执；`deliver.ps1`从冻结源码在仓库外双构建并核对JAR摘要；
+`test-delivery.ps1`仅运行回执脚本的合成反例回归。三个入口都保留证据，不清理目录或缓存。
 使用方法见 [运行说明](../docs/runtime.md)。当前无镜像构建或发布部署脚本，不创建占位资产。

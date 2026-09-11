@@ -5,6 +5,8 @@
 
 ## 当前文档
 
+- [PLAN-0002：独立交付与运行验收（本地验收完成）](plans/PLAN-0002-independent-delivery.md)
+
 - [运行、配置与独立验证](runtime.md)
 - [ADR-0004：独立 WebFlux 静态网关运行契约](adr/ADR-0004-static-webflux-runtime.md)
 

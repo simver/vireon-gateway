@@ -79,3 +79,40 @@ java -jar ./target/vireon-gateway-0.1.0-SNAPSHOT.jar
 日志写入`target/jar-*.log`，finally先终止精确子进程，超时才强制停止该测试持有的进程；不结束其他Java进程。
 测试报告在`target/surefire-reports`、`target/failsafe-reports`；不自动删除资源目录。
 实现者与审查者记录候选文件摘要/JAR摘要及真实结果；详见 [PLAN-0001](plans/PLAN-0001-basic-gateway.md)。
+
+## 自动回执与独立候选（PLAN-0002）
+
+PowerShell入口需要7.4或更新版本。`ops/verify.ps1`每次创建独占的`target/verification/<runId>/`，
+保存Maven/文档日志、Surefire/Failsafe报告与`receipt.json`。直接调用Wrapper仍使用上节的默认报告目录。
+只有完整verify、当轮有效报告、零失败/错误/跳过、文档检查及输入一致性全部通过，才记录
+`completeAcceptance=true`；compile/test的PASS仅表示所选阶段成功。失败回执保留失败阶段，进程返回非零。
+回执包含HEAD/dirty及实际输入逐文件SHA256；未提交候选不能只按HEAD识别。
+JAR测试前后核对制品SHA256并写入当轮`tested-artifact.sha256`；回执要求交付JAR与此一致。
+Boot可重复归档会固定JAR自身文件时间，因此不用该时间判断测试新鲜度。
+完整回执入口拒绝外部Maven/JVM选项环境变量、非空`.mvn/jvm.config`及偏离本仓固定内容的
+`.mvn/maven.config`，防止测试筛选、跳门禁或JDK自动打印秘密参数。自定义Maven调用不等同于本入口验收。
+
+候选交付先在当前仓库完成格式整理和验证，再运行：
+
+```powershell
+./ops/deliver.ps1 -MavenRepository 'C:/Workbench/Data/.m2/repository'
+```
+
+缺省在系统临时目录创建全新`vireon-gateway-<UUID>`；也可用`-Destination`指定一个不存在、
+位于源码目录之外且父目录已存在的绝对路径。脚本会保留路径并打印，不执行目录删除。
+输入仅为根级AGENTS/README/.gitignore/POM/Wrapper及src、ops、docs、.mvn；目标不含原target、.git或相邻源码。
+两份源码先按摘要冻结，然后各自用自身Wrapper完整verify，比较最终Boot可执行JAR的SHA256和运行版本。
+普通依赖缓存可以复用；默认允许联网解析，只有显式`-Offline`才声明离线运行。
+
+交付目录包括`build-a`、`build-b`的源码及各自完整验收证据、`frozen-source.json`、`delivery.json`、
+候选JAR及`SHA256SUMS`。交付回执绑定两份验证回执摘要和JAR摘要；失败时保留目录与失败阶段，不交付PASS。
+POM中固定归档时间属于冻结输入；同一候选不随构建当前时间变化。不承诺跨系统、JDK或第三方环境可重复。
+运行候选前用`Get-FileHash -Algorithm SHA256`对照摘要，再按上节前台启动，仍默认空路由。
+
+`ops/test-delivery.ps1`使用明确标注的合成报告和Wrapper替身检查回执失败路径；其结果仅为脚本回归，
+不能作为Java构建通过证据。测试文件保留在独立`target/delivery-tests/<UUID>`。
+
+正常停机回归以测试专用javaagent从测试持有的子进程stdin触发`System.exit(0)`，执行真实JVM shutdown hook。
+应用仍运行交付JAR；agent不进入产品JAR，不提供产品关闭端点，也不修改产品默认超时。
+用例检查期限内在途请求完成、超期请求失败、停止接收新连接、进程有界退出及双端口释放。
+该机制验证应用关闭流程；Windows控制台Ctrl+C、Windows服务管理器及Linux SIGTERM仍需在对应运行环境验收。

@@ -4,4 +4,5 @@
 
 | 编号 | 标题 | 状态 | 负责人及依赖 |
 | --- | --- | --- | --- |
-| [PLAN-0001](PLAN-0001-basic-gateway.md) | 基础 Gateway 自身开发与独立验收 | G0—G5完成，自身独立验收通过；54项测试通过；未创建Goal、未提交/部署 | Gateway主代理；ADR-0001—0004；无业务项目联验依赖 |
+| [PLAN-0001](PLAN-0001-basic-gateway.md) | 基础 Gateway 自身开发与独立验收 | 开发及返修完成；62项测试通过；已提交85caba4，未部署 | Gateway主代理；ADR-0001—0004；无业务项目联验依赖 |
+| [PLAN-0002](PLAN-0002-independent-delivery.md) | 独立交付与运行验收 | 本地验收完成：双构建各66项，脚本25项；提交记录见Git历史，未创建Goal/部署 | Gateway主代理；仅本仓验证，无远程CI或业务联验前置 |

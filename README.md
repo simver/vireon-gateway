@@ -10,8 +10,11 @@ DTO，也不代替 IAM、Audit、System 或 QBC 服务执行权限和业务校�
 - 默认无活跃业务路由；未提供生产镜像、Nacos或部署资产，未联合其他业务项目验证。
 - 按 [自身独立验收 ADR-0003](docs/adr/ADR-0003-gateway-independent-acceptance.md)先开发Gateway本身，
   用本仓测试下游验收协议与故障；真实服务接入和前端联合验收后置。Nacos和生产增强也不属于本期。
-- [PLAN-0001](docs/plans/PLAN-0001-basic-gateway.md)自身开发及审查问题返修完成：当前62项测试通过、修复独立复核通过；仓库外离线构建为返修前54项候选的历史证据。提交记录以Git历史为准，未创建Goal或部署。
+- [PLAN-0001](docs/plans/PLAN-0001-basic-gateway.md)自身开发及审查问题返修完成：该批62项测试通过、修复独立复核通过；仓库外离线构建为返修前54项候选的历史证据。提交记录以Git历史为准，未创建Goal或部署。
   开发遵循 [Gateway 开发流程](docs/development-workflow.md)，启动与验证见 [运行说明](docs/runtime.md)。
+- [PLAN-0002](docs/plans/PLAN-0002-independent-delivery.md)已补充自动验证回执、仓库外双构建交付入口及进程生命周期回归；
+  仓库外两份冻结副本各66项测试通过、最终JAR摘要一致，脚本25项回归及独立审查闭环。证据见计划。
+  交付入口为`ops/deliver.ps1`；提交记录以Git历史为准，未发布或部署，操作系统停止信号及跨项目联验未验证。
 
 ## 外部路径契约
 
