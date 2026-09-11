@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: vireon-gateway
+  main:
+    web-application-type: reactive
+  jmx:
+    enabled: false
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes: []
+          discovery:
+            locator:
+              enabled: false
+          forwarded:
+            enabled: false
+          x-forwarded:
+            enabled: false
+          httpclient:
+            connect-timeout: ${vireon.gateway.connect-timeout-millis:2000}
+            response-timeout: ${vireon.gateway.response-timeout:10s}
+            wiretap: false
+          httpserver:
+            wiretap: false
+server:
+  address: 127.0.0.1
+  port: 18080
+  forward-headers-strategy: none
+  shutdown: graceful
+management:
+  server:
+    address: 127.0.0.1
+    port: 19080
+  endpoints:
+    web:
+      exposure:
+        include: health
+    jmx:
+      exposure:
+        exclude: '*'
+  endpoint:
+    health:
+      show-details: never
+      show-components: never
+      probes:
+        enabled: true
+vireon:
+  gateway:
+    routes: {}
+    connect-timeout-millis: 2000
+    response-timeout: 10s
+logging:
+  level:
+    org.springframework.context: OFF
+    org.springframework.boot: OFF
+    reactor.netty: OFF
+    org.springframework.cloud.gateway: OFF
+    org.springframework.web.server.adapter.HttpWebHandlerAdapter: OFF

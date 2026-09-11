@@ -6,8 +6,12 @@ DTO，也不代替 IAM、Audit、System 或 QBC 服务执行权限和业务校�
 ## 当前状态
 
 - 启动第 1 步已完成：独立 Git 仓库与根级治理入口已经建立。
-- 当前没有 Maven 工程、可运行应用、镜像、Nacos 配置或活跃路由。
-- Gateway 实现位于总体启动顺序第 9 步；Framework 与 Platform 首批服务形成独立闭环后再开始。
+- 已建立独立 Maven/Wrapper/JAR、WebFlux 静态路由机制、透传与边缘安全实现；最终验收记录见PLAN-0001。
+- 默认无活跃业务路由；未提供生产镜像、Nacos或部署资产，未联合其他业务项目验证。
+- 按 [自身独立验收 ADR-0003](docs/adr/ADR-0003-gateway-independent-acceptance.md)先开发Gateway本身，
+  用本仓测试下游验收协议与故障；真实服务接入和前端联合验收后置。Nacos和生产增强也不属于本期。
+- [PLAN-0001](docs/plans/PLAN-0001-basic-gateway.md)自身开发及审查问题返修完成：当前62项测试通过、修复独立复核通过；仓库外离线构建为返修前54项候选的历史证据。提交记录以Git历史为准，未创建Goal或部署。
+  开发遵循 [Gateway 开发流程](docs/development-workflow.md)，启动与验证见 [运行说明](docs/runtime.md)。
 
 ## 外部路径契约
 
