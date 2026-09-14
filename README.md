@@ -5,6 +5,8 @@ DTO，也不代替 IAM、Audit、System 或 QBC 服务执行权限和业务校�
 
 ## 当前状态
 
+- 2026-09-14已授权执行IAM/Audit联合计划，终验收本机、不接入真实短信；本仓职责见 [PLAN-0003](docs/plans/PLAN-0003-platform-access-integration.md)，共同组合由Mix PLAN-0007维护。准备跨会话基线，未实施/联合验收/部署；下列独立交付证据不替代组合结果。
+
 - 启动第 1 步已完成：独立 Git 仓库与根级治理入口已经建立。
 - 已建立独立 Maven/Wrapper/JAR、WebFlux 静态路由机制、透传与边缘安全实现；最终验收记录见PLAN-0001。
 - 默认无活跃业务路由；未提供生产镜像、Nacos或部署资产，未联合其他业务项目验证。
