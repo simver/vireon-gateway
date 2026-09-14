@@ -5,7 +5,7 @@
 
 ## 当前文档
 
-- [PLAN-0003：IAM/Audit真实接入的Gateway交付与TLS验证](plans/PLAN-0003-platform-access-integration.md)：2026-09-14已授权执行，本机终验收、不接入真实短信，准备跨会话基线，未实施；共同组合由Mix拥有。
+- [PLAN-0003：IAM/Audit真实接入的Gateway交付与TLS验证](plans/PLAN-0003-platform-access-integration.md)：2026-09-14真实JAR TLS验证及双构建各70项通过；本机共同组合由Mix拥有，不接入真实短信。
 
 - [PLAN-0002：独立交付与运行验收（本地验收完成）](plans/PLAN-0002-independent-delivery.md)
 

@@ -5,18 +5,18 @@ DTO，也不代替 IAM、Audit、System 或 QBC 服务执行权限和业务校�
 
 ## 当前状态
 
-- 2026-09-14已授权执行IAM/Audit联合计划，终验收本机、不接入真实短信；本仓职责见 [PLAN-0003](docs/plans/PLAN-0003-platform-access-integration.md)，共同组合由Mix PLAN-0007维护。准备跨会话基线，未实施/联合验收/部署；下列独立交付证据不替代组合结果。
+- 2026-09-14本机IAM/Audit联合计划的Gateway交付已完成，双构建各70项通过，新增真实JAR TLS验证；见 [PLAN-0003](docs/plans/PLAN-0003-platform-access-integration.md)。共同组合由Mix PLAN-0007维护，本机终验收通过，未共享或生产部署；独立交付证据不替代组合结果。
 
 - 启动第 1 步已完成：独立 Git 仓库与根级治理入口已经建立。
 - 已建立独立 Maven/Wrapper/JAR、WebFlux 静态路由机制、透传与边缘安全实现；最终验收记录见PLAN-0001。
-- 默认无活跃业务路由；未提供生产镜像、Nacos或部署资产，未联合其他业务项目验证。
+- 默认无活跃业务路由；未提供生产镜像、Nacos或部署资产。本轮显式启用IAM/Audit的本机H0/H1完整运行检查通过，最终自然过期与E01～E16总收束均通过，详见Mix PLAN-0007。
 - 按 [自身独立验收 ADR-0003](docs/adr/ADR-0003-gateway-independent-acceptance.md)先开发Gateway本身，
-  用本仓测试下游验收协议与故障；真实服务接入和前端联合验收后置。Nacos和生产增强也不属于本期。
+  用本仓测试下游验收协议与故障；真实IAM/Audit接入由PLAN-0003交付后在Mix验收。产品前端、Nacos和生产增强不属于本期。
 - [PLAN-0001](docs/plans/PLAN-0001-basic-gateway.md)自身开发及审查问题返修完成：该批62项测试通过、修复独立复核通过；仓库外离线构建为返修前54项候选的历史证据。提交记录以Git历史为准，未创建Goal或部署。
   开发遵循 [Gateway 开发流程](docs/development-workflow.md)，启动与验证见 [运行说明](docs/runtime.md)。
 - [PLAN-0002](docs/plans/PLAN-0002-independent-delivery.md)已补充自动验证回执、仓库外双构建交付入口及进程生命周期回归；
   仓库外两份冻结副本各66项测试通过、最终JAR摘要一致，脚本25项回归及独立审查闭环。证据见计划。
-  交付入口为`ops/deliver.ps1`；提交记录以Git历史为准，未发布或部署，操作系统停止信号及跨项目联验未验证。
+  交付入口为`ops/deliver.ps1`；提交记录以Git历史为准，未发布或部署。该批未验证操作系统停止信号与跨项目联验；本轮本机停止及组合证据由PLAN-0003/Mix PLAN-0007承接。
 
 ## 外部路径契约
 

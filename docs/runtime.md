@@ -3,6 +3,14 @@
 本期只运行本仓。真实IAM/Audit、浏览器会话、TLS/共享环境、生产镜像和部署均未验收。
 版本、信任和错误契约见 [ADR-0004](adr/ADR-0004-static-webflux-runtime.md)。
 
+## 本机TLS接入配置
+
+PLAN-0003采用Boot标准`server.ssl.enabled`、`server.ssl.key-store`、`server.ssl.key-store-type=PKCS12`及环境内`SERVER_SSL_KEY_STORE_PASSWORD`。
+业务监听HTTPS，独立回环管理端口显式`management.server.ssl.enabled=false`；管理面不经外部Gateway路径暴露。
+下游精确信任键为`spring.cloud.gateway.server.webflux.httpclient.ssl.trusted-x509-certificates`（字符串列表），保持`use-insecure-trust-manager=false`。
+不设置代理信任、不使用不安全信任或修改系统CA。设置`vireon.gateway.routes.iam/audit`为对应HTTPS绝对URI，证书SAN必须匹配。
+`GatewayTlsJarIT`已加入本仓verify，真实JAR对受信下游保持完整path/query，对未知CA、错SAN、过期证书返回固定502；实际通过范围见PLAN-0003，不能代替真实IAM/Audit组合验收。
+
 ## 构建
 
 需要JDK25，`JAVA_HOME`或PATH中的java指向该JDK。Maven由本仓Wrapper下载，分发SHA-256固定，首次构建需要访问Maven Central。
